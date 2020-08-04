@@ -1,6 +1,6 @@
 import webbrowser as wb
 import pyautogui as pag
-from xxx import url
+from fetch import url
 import time
 import cv2
 

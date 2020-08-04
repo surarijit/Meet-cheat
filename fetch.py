@@ -1,21 +1,23 @@
+#!/usr/bin/env python
+# coding: utf-8
 
-import gspread
+# In[1]:
+
+
 import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
-import pprint
 
 
-scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('ABC1.json', scope)
-client = gspread.authorize(creds)
+# In[24]:
 
-sheet = client.open('meet_cheat').sheet1
 
-data = sheet.get_all_records()
+gsheetID = "1eF5vxI7qL7MHKpWIinks4eK3X1KQ6IwDzepgBnOqifU"
+sheetName = "Sheet1"
 
-#print(type(data))
+sheet_url ="https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}".format(gsheetID, sheetName)
 
-url = sheet.cell(2, 1).value
-#print(type(url))
+df=pd.read_csv(sheet_url)
 
+l=len(df["Meeting Link"])
+url = df['Meeting Link'][l-1]
 print(url)
+
