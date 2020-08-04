@@ -3,7 +3,7 @@ import webbrowser as wb
 import pyautogui as pag
 import subprocess
 from time import sleep
-import cv2
+
 
 class work:
     def __init__(self,id1,name1,url1):
