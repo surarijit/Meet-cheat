@@ -3,7 +3,7 @@ import webbrowser as wb
 import pyautogui as pag
 import subprocess
 from time import sleep
-
+import cv2
 
 class work:
     def __init__(self,id1,name1,url1):
@@ -13,9 +13,11 @@ class work:
         self.len = self.length_of_sheet()
         self.data = self.read_sheet()
         self.go_into_meeting()
+        self.check()
 
     def sendmessage(self,message):   
         subprocess.Popen(['notify-send', message])
+        print(message)
         self.move_curser()
         self.move_curser()
 
@@ -59,12 +61,16 @@ class work:
         loc = None
         i = 0
         while(loc==None and i<20):
-            loc = self.locate('./images/join.png',0.8)
+            img = cv2.imread('./images/join.png')
+            loc = self.locate(img,0.8)
             if loc==None:
-                loc = self.locate('./images/ask_to_join.png',0.8)
+                img = cv2.imread('./images/ask_to_join.png')
+                loc = self.locate(img,0.8)
             if loc==None:
-                loc = self.locate('./images/join_now.png',0.8)
-            sleep(1)
+                img = cv2.imread('./images/join_now.png')
+                loc = self.locate(img,0.8)
+            if loc==None:
+                sleep(1)
             i+=1
         return loc
     
@@ -78,4 +84,15 @@ class work:
     def go_into_meeting(self):
         self.open_meet()
         self.enter_meeting()
+    
+    def check(self):
+        while 1:
+            if len(self.read_sheet())==len(self.data):
+                sleep(5)
+            else:
+                self.sendmessage("New Link Successfully Identified")
+                self.data = self.read_sheet()
+                self.go_into_meeting()
+            
+        
     

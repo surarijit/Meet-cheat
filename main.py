@@ -1,15 +1,21 @@
-import webbrowser as wb
-import pyautogui as pag
-from fetch import url
-import time
-import cv2
+import os
+depends = [ "pyautogui",
+            "pandas",
+            "opencv-python"
+]
 
-print(pag.size())
-wb.open_new_tab(url)
-print("start locating")
-time.sleep(10)
-loc = pag.locateCenterOnScreen('join.png',confidence = 0.8)
-pag.moveTo(loc)
-time.sleep(1.3)
-pag.click(loc)
-print(loc)
+
+def installs():
+    for i in depends:
+        os.system("pip3 install "+ i)
+
+
+#installs()
+from cheatmeet import work
+
+gsheetID = "1eF5vxI7qL7MHKpWIinks4eK3X1KQ6IwDzepgBnOqifU"
+sheetName = "Sheet1"
+sheet_url ="https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}"
+
+if __name__ == "__main__":
+    work(gsheetID,sheetName,sheet_url)
