@@ -1,4 +1,5 @@
-import os
+#!/usr/bin/env python3
+from os import system
 depends = [ "pyautogui",
             "pandas",
             "opencv-python"
